@@ -24,12 +24,14 @@
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" > -->
+	<link rel="stylesheet" type="text/css" href="../css/mainBack.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style></style>
+	
    	
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -54,7 +56,7 @@
 	
 </head>
 
-<body>
+<body >
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">

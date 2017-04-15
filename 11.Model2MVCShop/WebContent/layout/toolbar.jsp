@@ -77,7 +77,7 @@
 	                           <li><a href="#">구매이력조회</a></li>
 	                         </c:if>
 	                         
-	                         <li><a href="#">최근본상품</a></li>
+	                         <li><a href="#">최근 본 상품</a></li>
 	                         <li class="divider"></li>
 	                         <li><a href="#">etc..</a></li>
 	                     </ul>
@@ -89,6 +89,14 @@
 	             <ul class="nav navbar-nav navbar-right">
 	                <li><a href="#">로그아웃</a></li>
 	            </ul>
+	            
+	            
+	            
+	            
+	            
+	            
+	            
+	            
 		</div>
 		<!-- dropdown hover END -->	       
 	    
@@ -124,4 +132,50 @@
 			$(self.location).attr("href","/user/getUser?userId=${sessionScope.user.userId}");
 		});
 		
+	 	//============= 판매상품등록 Event  처리 =============	
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("a:contains('판매상품등록')").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+				self.location = "/product/addProduct"
+			});
+		 });
+		
+	 	
+			//============= 판매상품관리 Event  처리 =============	
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("a:contains('판매상품관리')").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+				self.location = "/product/listProduct?menu=manage"
+			});
+		 });
+			
+			//============= 상 품 검 색 Event  처리 =============	
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("a:contains('상 품 검 색')").on("click" , function() {
+				//$(self.location).attr("href","/user/logout");
+				self.location = "/product/listProduct?menu=search";
+			});
+		 });	
+			
+		//============= 최근 본 상품 Event  처리 =============	
+		 $(function() {
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		 	$("a:contains('최근 본 상품')").on("click" , function() {
+		 		javascript:history();
+			});
+		 });	
+		
+		 function history() {
+				popWin = window
+						.open(
+								"/history.jsp",
+								"popWin",
+								"left=300, top=200, width=300, height=200, marginwidth=0, marginheight=0, scrollbars=no, scrolling=no, menubar=no, resizable=no");
+			}
+		//==============================================================================
+		 
+		 
 	</script>  

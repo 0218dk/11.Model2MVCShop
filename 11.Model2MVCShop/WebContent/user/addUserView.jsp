@@ -7,7 +7,7 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="EUC-KR"> 
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,12 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="../css/mainBack.css" >
+	
+	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
@@ -204,7 +210,7 @@
 		  <div class="form-group">
 		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
+		      <input type="text" class="form-control" id="userName" name="userName" placeholder="회원이름">
 		    </div>
 		  </div>
 		  
@@ -251,7 +257,7 @@
 		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
 		    </div>
 		  </div>
-		  
+		  $("a[href='#' ]") $("button[class='btn btn-primary']")
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary"  >가 &nbsp;입</button>
@@ -259,7 +265,7 @@
 		    </div>
 		  </div>
 		</form>
-		<!-- form Start /////////////////////////////////////-->
+		<!-- form End /////////////////////////////////////-->
 		
  	</div>
 	<!--  화면구성 div end /////////////////////////////////////-->

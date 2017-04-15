@@ -1,9 +1,8 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page contentType="text/html; charset=EUC-KR"%>
 <%@ page pageEncoding="EUC-KR"%>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <!DOCTYPE html>
 
@@ -18,14 +17,6 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	
-	
-	
-	<link rel="stylesheet" type="text/css" href="../css/mainBack.css" >
-	
-	
-	
-	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
@@ -33,6 +24,11 @@
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   
+   
+   <link rel="stylesheet" type="text/css" href="../css/mainBack.css" >
+   
+   
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
@@ -55,28 +51,28 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/user/listUser").submit();
+			$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu=${param.menu}").submit();
 		}
 		
 		
 		//============= "검색"  Event  처리 =============	
 		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 //$( "button.btn.btn-default" ).on("click" , function() {
-			//	fncGetList(1);
-			//});
+			 $( "button:contains('검색')" ).on("click" , function() {
+					fncGetList(1);	
+				});
 		 });
+		 
 		
-		
-		//============= userId 에 회원정보보기  Event  처리(Click) =============	
+		//============= prodNo 에 상품정보보기  Event  처리(Click) =============	
 		 $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
+				self.location ="/product/getProduct?prodNo="
+					+$(this).attr("value")+"&menu="+$(this).attr("value2");
 			});
 						
-			//==> userId LINK Event End User 에게 보일수 있도록 
+			//==> userId LINK Event End User 에게 보일수 있도록  ????????????????????????
 			$( "td:nth-child(2)" ).css("color" , "red");
 			
 		});	
@@ -87,41 +83,41 @@
 			 
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$(  "td:nth-child(5) > i" ).on("click" , function() {
+			
+				var prodNo = $(this).next().val();
+				$.ajax( 
+						{
+							url : "/product/getJsonProduct/"+prodNo ,
+							method : "GET" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
 
-					var userId = $(this).next().val();
-				
-					$.ajax( 
-							{
-								url : "/user/getJsonUser/"+userId ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
-
-									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.user.userId+"<br/>"
-																+"이  름 : "+JSONData.user.userName+"<br/>"
-																+"이메일 : "+JSONData.user.email+"<br/>"
-																+"ROLE : "+JSONData.user.role+"<br/>"
-																+"등록일 : "+JSONData.user.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
-								}
-						});
+								var displayValue = "<h6>"
+															+"상품번호 : "+JSONData.product.prodNo+"<br/>"
+															+"상 품명 : "+JSONData.product.prodName+"<br/>"
+															+"상세정보 : "+JSONData.product.prodDetail+"<br/>"
+															+"가"+"&nbsp;&nbsp;"+"격"+"&nbsp;:&nbsp;"+JSONData.product.price+"<br/>"
+															+"등록일자 : "+JSONData.product.regDate+"<br/>"
+															+"</h6>";
+								
+								$("h3").remove();
+								$( "#"+prodNo+"" ).html(displayValue);
+							}
+					}); 
 						////////////////////////////////////////////////////////////////////////////////////////////
 					
 			});
 			
 			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
+		//	$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
+			//$("h7").css("color" , "red");
 			
 			//==> 아래와 같이 정의한 이유는 ??
-			//$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+		//	$(".ct_list_pop:nth-child(2n+1)" ).css("background-color" , "whitesmoke");
 		});	
 	
 	</script>
@@ -138,7 +134,7 @@
 	<div class="container">
 	
 		<div class="page-header text-info">
-	       <h3>회원목록조회</h3>
+	       <h3>상품목록조회</h3>
 	    </div>
 	    
 	    <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -155,8 +151,15 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option>
+						<option value="0"
+								${ ! empty search.searchCondition &&
+								 search.searchCondition==0 ? "selected" : "" }>상품번호</option>
+							<option value="1"
+								${ ! empty search.searchCondition &&
+								 search.searchCondition==1 ? "selected" : "" }>상품명</option>
+							<option value="2"
+								${ ! empty search.searchCondition &&
+								 search.searchCondition==2 ? "selected" : "" }>상품가격</option>
 					</select>
 				  </div>
 				  
@@ -182,31 +185,38 @@
       <table class="table table-hover table-striped" >
       
         <thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="left" >회원 ID</th>
-            <th align="left">회원명</th>
-            <th align="left">이메일</th>
-            <th align="left">간략정보</th>
-          </tr>
+          	<tr>
+				<th class="ct_list_b" align="center" >No</th>
+				<th class="ct_list_b" align="left" >상품명</th>
+				<th class="ct_list_b" align="left" >가격</th>
+				<th class="ct_list_b" align="left" >등록일</th>
+				<th class="ct_list_b" align="left" ></th>
+				<th class="ct_list_b" align="left" >현재상태</th>
+			</tr>
         </thead>
        
 		<tbody>
 		
 		  <c:set var="i" value="0" />
-		  <c:forEach var="user" items="${list}">
-			<c:set var="i" value="${ i+1 }" />
-			<tr>
-			  <td align="center">${ i }</td>
-			  <td align="left"  title="Click : 회원정보 확인">${user.userId}</td>
-			  <td align="left">${user.userName}</td>
-			  <td align="left">${user.email}</td>
-			  <td align="left">
-			  	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
-			  	<input type="hidden" value="${user.userId}">
-			  </td>
-			</tr>
-          </c:forEach>
+				<c:forEach var="product" items="${list}">
+					<c:set var="i" value="${ i+1 }" />
+					<tr class="ct_list_pop">
+						<td align="center">${ i }</td>
+						<td align="left" value="${product.prodNo}" value2="${param.menu}">
+						${product.prodName}
+						</td>
+						<td align="left">${product.price}</td>
+						<td align="left">${product.regDate}</td>
+						<td align="left">
+			  				<i class="glyphicon glyphicon-ok" id= "${product.prodNo}"></i>
+			  				<input type="hidden" value="${product.prodNo}">
+			  			</td>
+						<td align="left">${product.proTranCode}</td>
+					</tr>
+					<%-- <tr>
+						<td id="${product.prodNo}" colspan="11" bgcolor="D6D7D6" height="1"></td>
+					</tr> --%>
+				</c:forEach>
         
         </tbody>
       
@@ -220,6 +230,15 @@
  	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->
+	
+	<a style="display: scroll; position: fixed; bottom: 20px; right: 30px;"
+		href="#" title=Top> <img
+		src="http://cfile22.uf.tistory.com/image/116F87594D88BF7422A8A3"
+		alt=""
+		onmouseover="this.src='http://cfile23.uf.tistory.com/image/206F87594D88BF74210850'"
+		onmouseout="this.src='http://cfile22.uf.tistory.com/image/116F87594D88BF7422A8A3'"
+		border="0" /></a>
+
 	
 </body>
 
